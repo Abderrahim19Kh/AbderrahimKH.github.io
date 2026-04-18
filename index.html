@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Graphic Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F5F0E8;
+    --ink: #1A1814;
+    --warm-gray: #8C8880;
+    --accent: #C8A96E;
+    --accent-light: #E8D9B8;
+    --white: #FDFCFA;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    background: rgba(245, 240, 232, 0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(26,24,20,0.08);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--ink); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 5rem;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 4rem 6rem 4rem;
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 6vw, 6rem);
+    font-weight: 300;
+    line-height: 1.0;
+    color: var(--ink);
+    margin-bottom: 2rem;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-desc {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--warm-gray);
+    max-width: 380px;
+    margin-bottom: 3rem;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 0.25rem;
+    transition: gap 0.3s;
+  }
+
+  .hero-cta:hover { gap: 1.25rem; }
+
+  .hero-right {
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-right-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  /* Decorative geometric art in hero */
+  .geo-art {
+    position: absolute;
+    inset: 0;
+  }
+
+  .geo-art svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-stat-block {
+    position: absolute;
+    bottom: 3rem;
+    left: 3rem;
+    display: flex;
+    gap: 3rem;
+  }
+
+  .hero-stat span {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .hero-stat small {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(253,252,250,0.4);
+    margin-top: 0.4rem;
+    display: block;
+  }
+
+  /* ── MARQUEE ── */
+  .marquee-wrap {
+    background: var(--accent);
+    padding: 1rem 0;
+    overflow: hidden;
+    display: flex;
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 0;
+    animation: marquee 18s linear infinite;
+    white-space: nowrap;
+  }
+
+  .marquee-item {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .marquee-item::after {
+    content: '✦';
+    font-size: 0.5rem;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ── PROJECTS ── */
+  .projects {
+    padding: 8rem 4rem;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(26,24,20,0.12);
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+  }
+
+  .section-count {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5rem;
+    font-weight: 300;
+    color: var(--accent-light);
+    line-height: 1;
+  }
+
+  /* Project grid */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--white);
+    border: 1px solid rgba(26,24,20,0.08);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s;
+    position: relative;
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 60px rgba(26,24,20,0.12);
+  }
+
+  .project-card.large { grid-column: span 7; }
+  .project-card.small { grid-column: span 5; }
+  .project-card.wide  { grid-column: span 12; }
+  .project-card.mid   { grid-column: span 6; }
+
+  .card-visual {
+    width: 100%;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .card-visual.tall { aspect-ratio: 3/4; }
+  .card-visual.short { aspect-ratio: 16/7; }
+
+  .card-visual svg {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .project-card:hover .card-visual svg {
+    transform: scale(1.04);
+  }
+
+  .card-info {
+    padding: 1.5rem;
+  }
+
+  .card-tag {
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+
+  .card-desc {
+    font-size: 0.82rem;
+    line-height: 1.7;
+    color: var(--warm-gray);
+  }
+
+  .card-arrow {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(26,24,20,0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: var(--ink);
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+
+  .project-card:hover .card-arrow {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* ── ADD PROJECT CARD ── */
+  .add-card {
+    grid-column: span 4;
+    background: transparent;
+    border: 1px dashed rgba(200, 169, 110, 0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    gap: 1rem;
+    cursor: pointer;
+    transition: border-color 0.3s, background 0.3s;
+    min-height: 200px;
+  }
+
+  .add-card:hover {
+    border-color: var(--accent);
+    background: rgba(200,169,110,0.04);
+  }
+
+  .add-icon {
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--accent-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    color: var(--accent);
+  }
+
+  .add-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    text-align: center;
+  }
+
+  /* ── ABOUT ── */
+  .about {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 8rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .about-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .about-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 300;
+    line-height: 1.15;
+    margin-bottom: 2rem;
+  }
+
+  .about-title em { font-style: italic; color: var(--accent); }
+
+  .about-body {
+    font-size: 0.9rem;
+    line-height: 1.9;
+    color: rgba(245,240,232,0.65);
+    max-width: 440px;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: rgba(245,240,232,0.08);
+    border: 1px solid rgba(245,240,232,0.08);
+  }
+
+  .skill-cell {
+    background: rgba(26,24,20,0.6);
+    padding: 1.5rem;
+    border: 1px solid rgba(245,240,232,0.06);
+  }
+
+  .skill-name {
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    color: rgba(245,240,232,0.9);
+    margin-bottom: 0.3rem;
+  }
+
+  .skill-level {
+    height: 2px;
+    background: rgba(245,240,232,0.1);
+    margin-top: 0.6rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-fill {
+    height: 100%;
+    background: var(--accent);
+    transition: width 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--cream);
+    padding: 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(26,24,20,0.1);
+  }
+
+  .footer-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 300;
+    color: var(--ink);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover { color: var(--ink); }
+
+  .footer-copy {
+    font-size: 0.72rem;
+    color: var(--warm-gray);
+  }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(26,24,20,0.75);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .modal {
+    background: var(--cream);
+    max-width: 560px;
+    width: 90%;
+    padding: 3rem;
+    position: relative;
+    transform: translateY(20px);
+    transition: transform 0.3s;
+  }
+
+  .modal-overlay.open .modal { transform: translateY(0); }
+
+  .modal-close {
+    position: absolute;
+    top: 1.5rem; right: 1.5rem;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--warm-gray);
+  }
+
+  .modal h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
+  }
+
+  .modal p {
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: var(--warm-gray);
+    margin-bottom: 2rem;
+  }
+
+  .modal-steps {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .modal-steps li {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    color: var(--accent);
+    line-height: 1;
+    min-width: 24px;
+  }
+
+  .step-text {
+    font-size: 0.83rem;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+
+  .step-text code {
+    background: rgba(200,169,110,0.15);
+    color: var(--accent);
+    padding: 0.1em 0.4em;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── ANIMATE ON SCROLL ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { min-height: 50vh; }
+    .projects { padding: 5rem 1.5rem; }
+    .project-card.large, .project-card.small,
+    .project-card.wide, .project-card.mid { grid-column: span 12; }
+    .about { grid-template-columns: 1fr; padding: 5rem 1.5rem; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Your Name</a>
+  <ul class="nav-links">
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="mailto:you@email.com">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Graphic Designer — Based in Algeria</p>
+    <h1 class="hero-title">
+      Design that<br>
+      <em>speaks</em><br>
+      without words
+    </h1>
+    <p class="hero-desc">
+      I craft visual identities, brand systems, and editorial designs that leave lasting impressions. Every pixel is intentional.
+    </p>
+    <a href="#projects" class="hero-cta">
+      View selected work →
+    </a>
+  </div>
+  <div class="hero-right">
+    <div class="geo-art">
+      <svg viewBox="0 0 600 700" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <radialGradient id="glow" cx="50%" cy="50%" r="60%">
+            <stop offset="0%" stop-color="#C8A96E" stop-opacity="0.15"/>
+            <stop offset="100%" stop-color="#1A1814" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="600" height="700" fill="#1A1814"/>
+        <ellipse cx="300" cy="350" rx="260" ry="260" fill="url(#glow)"/>
+        <!-- Concentric circles -->
+        <circle cx="300" cy="350" r="220" fill="none" stroke="rgba(200,169,110,0.12)" stroke-width="1"/>
+        <circle cx="300" cy="350" r="170" fill="none" stroke="rgba(200,169,110,0.10)" stroke-width="1"/>
+        <circle cx="300" cy="350" r="120" fill="none" stroke="rgba(200,169,110,0.15)" stroke-width="1"/>
+        <circle cx="300" cy="350" r="70" fill="none" stroke="rgba(200,169,110,0.2)" stroke-width="1"/>
+        <!-- Cross lines -->
+        <line x1="80" y1="350" x2="520" y2="350" stroke="rgba(200,169,110,0.12)" stroke-width="0.5"/>
+        <line x1="300" y1="130" x2="300" y2="570" stroke="rgba(200,169,110,0.12)" stroke-width="0.5"/>
+        <line x1="144" y1="194" x2="456" y2="506" stroke="rgba(200,169,110,0.08)" stroke-width="0.5"/>
+        <line x1="456" y1="194" x2="144" y2="506" stroke="rgba(200,169,110,0.08)" stroke-width="0.5"/>
+        <!-- Golden rectangle -->
+        <rect x="175" y="225" width="250" height="250" fill="none" stroke="rgba(200,169,110,0.25)" stroke-width="0.8"/>
+        <!-- Inner dot -->
+        <circle cx="300" cy="350" r="5" fill="#C8A96E" opacity="0.9"/>
+        <circle cx="300" cy="350" r="14" fill="none" stroke="#C8A96E" stroke-width="0.8" opacity="0.5"/>
+        <!-- Corner marks -->
+        <path d="M175 225 L175 245 M175 225 L195 225" stroke="rgba(200,169,110,0.6)" stroke-width="1" fill="none"/>
+        <path d="M425 225 L425 245 M425 225 L405 225" stroke="rgba(200,169,110,0.6)" stroke-width="1" fill="none"/>
+        <path d="M175 475 L175 455 M175 475 L195 475" stroke="rgba(200,169,110,0.6)" stroke-width="1" fill="none"/>
+        <path d="M425 475 L425 455 M425 475 L405 475" stroke="rgba(200,169,110,0.6)" stroke-width="1" fill="none"/>
+        <!-- Small accent squares -->
+        <rect x="292" y="140" width="16" height="16" fill="none" stroke="rgba(200,169,110,0.4)" stroke-width="0.8"/>
+        <rect x="292" y="544" width="16" height="16" fill="none" stroke="rgba(200,169,110,0.4)" stroke-width="0.8"/>
+        <rect x="88" y="342" width="16" height="16" fill="none" stroke="rgba(200,169,110,0.4)" stroke-width="0.8"/>
+        <rect x="496" y="342" width="16" height="16" fill="none" stroke="rgba(200,169,110,0.4)" stroke-width="0.8"/>
+      </svg>
+    </div>
+    <div class="hero-stat-block">
+      <div class="hero-stat">
+        <span>04</span>
+        <small>Years experience</small>
+      </div>
+      <div class="hero-stat">
+        <span>30+</span>
+        <small>Projects done</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Brand Identity</span>
+    <span class="marquee-item">Logo Design</span>
+    <span class="marquee-item">Typography</span>
+    <span class="marquee-item">Editorial</span>
+    <span class="marquee-item">Packaging</span>
+    <span class="marquee-item">Motion Graphics</span>
+    <span class="marquee-item">UI / UX</span>
+    <span class="marquee-item">Illustration</span>
+    <span class="marquee-item">Brand Identity</span>
+    <span class="marquee-item">Logo Design</span>
+    <span class="marquee-item">Typography</span>
+    <span class="marquee-item">Editorial</span>
+    <span class="marquee-item">Packaging</span>
+    <span class="marquee-item">Motion Graphics</span>
+    <span class="marquee-item">UI / UX</span>
+    <span class="marquee-item">Illustration</span>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <div class="section-header fade-up">
+    <div>
+      <p class="section-label">Selected work</p>
+      <h2 class="section-title">Projects &<br>Case Studies</h2>
+    </div>
+    <span class="section-count">03</span>
+  </div>
+
+  <div class="projects-grid">
+
+    <!-- Card 1 — large -->
+    <div class="project-card large fade-up" style="transition-delay:0.1s">
+      <div class="card-visual">
+        <svg viewBox="0 0 560 420" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="560" height="420" fill="#2C2318"/>
+          <circle cx="280" cy="210" r="160" fill="none" stroke="#C8A96E" stroke-width="1"/>
+          <circle cx="280" cy="210" r="100" fill="rgba(200,169,110,0.08)"/>
+          <rect x="180" y="160" width="200" height="100" fill="none" stroke="rgba(200,169,110,0.4)" stroke-width="0.8"/>
+          <text x="280" y="200" fill="#C8A96E" font-family="Georgia,serif" font-size="42" font-weight="300" text-anchor="middle" dominant-baseline="middle">LUXE</text>
+          <text x="280" y="240" fill="rgba(200,169,110,0.5)" font-family="Georgia,serif" font-size="10" letter-spacing="6" text-anchor="middle">COSMETICS</text>
+        </svg>
+      </div>
+      <div class="card-info">
+        <p class="card-tag">Brand Identity</p>
+        <h3 class="card-title">Luxe Cosmetics — Brand System</h3>
+        <p class="card-desc">Full visual identity including logo, color palette, typography system, and packaging design for a luxury skincare brand.</p>
+      </div>
+      <div class="card-arrow">↗</div>
+    </div>
+
+    <!-- Card 2 — small -->
+    <div class="project-card small fade-up" style="transition-delay:0.2s">
+      <div class="card-visual tall">
+        <svg viewBox="0 0 420 560" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="420" height="560" fill="#1C2634"/>
+          <rect x="60" y="80" width="300" height="400" fill="none" stroke="rgba(100,160,220,0.3)" stroke-width="0.8"/>
+          <rect x="90" y="110" width="240" height="340" fill="rgba(100,160,220,0.05)"/>
+          <!-- Poster text layout -->
+          <rect x="80" y="150" width="260" height="2" fill="rgba(100,160,220,0.5)"/>
+          <rect x="80" y="380" width="260" height="2" fill="rgba(100,160,220,0.5)"/>
+          <text x="210" y="260" fill="#E8F4FF" font-family="Georgia,serif" font-size="48" font-weight="300" text-anchor="middle" dominant-baseline="middle">NOVA</text>
+          <text x="210" y="310" fill="rgba(100,160,220,0.7)" font-family="sans-serif" font-size="9" letter-spacing="5" text-anchor="middle">MUSIC FESTIVAL 2024</text>
+          <circle cx="210" cy="200" r="25" fill="none" stroke="rgba(100,160,220,0.4)" stroke-width="0.8"/>
+          <circle cx="210" cy="200" r="3" fill="#6495DD"/>
+        </svg>
+      </div>
+      <div class="card-info">
+        <p class="card-tag">Poster Design</p>
+        <h3 class="card-title">Nova Festival Poster Series</h3>
+        <p class="card-desc">Editorial poster series for an annual music festival.</p>
+      </div>
+      <div class="card-arrow">↗</div>
+    </div>
+
+    <!-- Card 3 — wide -->
+    <div class="project-card mid fade-up" style="transition-delay:0.3s">
+      <div class="card-visual short">
+        <svg viewBox="0 0 720 315" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="720" height="315" fill="#F0EBE0"/>
+          <!-- Packaging mockup -->
+          <rect x="220" y="40" width="130" height="235" fill="#E8D9B8" rx="4"/>
+          <rect x="226" y="46" width="118" height="223" fill="none" stroke="#C8A96E" stroke-width="0.8" rx="2"/>
+          <text x="285" y="155" fill="#4A3A28" font-family="Georgia,serif" font-size="14" font-weight="400" text-anchor="middle" dominant-baseline="middle">ARÔME</text>
+          <text x="285" y="175" fill="rgba(74,58,40,0.5)" font-family="sans-serif" font-size="7" letter-spacing="4" text-anchor="middle">NATUREL</text>
+          <rect x="370" y="40" width="130" height="235" fill="#D4C4A0" rx="4"/>
+          <rect x="376" y="46" width="118" height="223" fill="none" stroke="#C8A96E" stroke-width="0.8" rx="2"/>
+          <text x="435" y="155" fill="#4A3A28" font-family="Georgia,serif" font-size="14" font-weight="400" text-anchor="middle" dominant-baseline="middle">ARÔME</text>
+          <text x="435" y="175" fill="rgba(74,58,40,0.5)" font-family="sans-serif" font-size="7" letter-spacing="4" text-anchor="middle">ÉPICÉ</text>
+        </svg>
+      </div>
+      <div class="card-info">
+        <p class="card-tag">Packaging</p>
+        <h3 class="card-title">Arôme — Candle Packaging</h3>
+        <p class="card-desc">Minimalist packaging design for an artisan candle brand.</p>
+      </div>
+      <div class="card-arrow">↗</div>
+    </div>
+
+    <!-- Card 4 — mid -->
+    <div class="project-card mid fade-up" style="transition-delay:0.35s">
+      <div class="card-visual short">
+        <svg viewBox="0 0 720 315" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="720" height="315" fill="#1E1E2A"/>
+          <circle cx="360" cy="157" r="100" fill="none" stroke="rgba(180,100,255,0.3)" stroke-width="40"/>
+          <circle cx="360" cy="157" r="60" fill="rgba(120,60,200,0.15)"/>
+          <text x="360" y="145" fill="#E0C8FF" font-family="Georgia,serif" font-size="22" text-anchor="middle" font-weight="300">VEGA</text>
+          <text x="360" y="172" fill="rgba(180,100,255,0.6)" font-family="sans-serif" font-size="7" letter-spacing="5" text-anchor="middle">STUDIO</text>
+        </svg>
+      </div>
+      <div class="card-info">
+        <p class="card-tag">Logo Design</p>
+        <h3 class="card-title">Vega Studio — Visual Identity</h3>
+        <p class="card-desc">Logo and brand mark for a creative studio.</p>
+      </div>
+      <div class="card-arrow">↗</div>
+    </div>
+
+    <!-- Add more projects placeholder -->
+    <div class="add-card fade-up" style="transition-delay:0.4s" onclick="document.getElementById('howToAdd').classList.add('open')">
+      <div class="add-icon">+</div>
+      <p class="add-label">Add your project<br>here</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="fade-up">
+    <p class="about-label">About me</p>
+    <h2 class="about-title">
+      Turning ideas<br>into <em>visual stories</em>
+    </h2>
+    <p class="about-body">
+      I'm a graphic designer passionate about clean, meaningful design. I work with brands to build visual identities that connect with their audience — from logo to final print. Based in Algeria, working globally.
+    </p>
+  </div>
+  <div class="skills-grid fade-up" style="transition-delay:0.2s">
+    <div class="skill-cell">
+      <p class="skill-name">Brand Identity</p>
+      <div class="skill-level"><div class="skill-fill" data-width="92%" style="width:0"></div></div>
+    </div>
+    <div class="skill-cell">
+      <p class="skill-name">Typography</p>
+      <div class="skill-level"><div class="skill-fill" data-width="88%" style="width:0"></div></div>
+    </div>
+    <div class="skill-cell">
+      <p class="skill-name">Illustration</p>
+      <div class="skill-level"><div class="skill-fill" data-width="78%" style="width:0"></div></div>
+    </div>
+    <div class="skill-cell">
+      <p class="skill-name">Packaging</p>
+      <div class="skill-level"><div class="skill-fill" data-width="82%" style="width:0"></div></div>
+    </div>
+    <div class="skill-cell">
+      <p class="skill-name">Motion Design</p>
+      <div class="skill-level"><div class="skill-fill" data-width="65%" style="width:0"></div></div>
+    </div>
+    <div class="skill-cell">
+      <p class="skill-name">UI Design</p>
+      <div class="skill-level"><div class="skill-fill" data-width="72%" style="width:0"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-name">Your Name</p>
+  <ul class="footer-links">
+    <li><a href="https://behance.net" target="_blank">Behance</a></li>
+    <li><a href="https://dribbble.com" target="_blank">Dribbble</a></li>
+    <li><a href="https://linkedin.com" target="_blank">LinkedIn</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 — All rights reserved</p>
+</footer>
+
+<!-- HOW TO ADD MODAL -->
+<div class="modal-overlay" id="howToAdd" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('howToAdd').classList.remove('open')">✕</button>
+    <h2>Adding a project</h2>
+    <p>Open <code>index.html</code> and copy a <code>.project-card</code> block. Replace the SVG illustration with your image using:</p>
+    <ul class="modal-steps">
+      <li>
+        <span class="step-num">1</span>
+        <span class="step-text">Add your image to the project folder, e.g. <code>img/myproject.jpg</code></span>
+      </li>
+      <li>
+        <span class="step-num">2</span>
+        <span class="step-text">Replace the <code>&lt;svg&gt;</code> block inside <code>.card-visual</code> with:<br><code>&lt;img src="img/myproject.jpg" style="width:100%;height:100%;object-fit:cover"&gt;</code></span>
+      </li>
+      <li>
+        <span class="step-num">3</span>
+        <span class="step-text">Update the tag, title, and description text inside <code>.card-info</code></span>
+      </li>
+      <li>
+        <span class="step-num">4</span>
+        <span class="step-text">Save → commit → push to GitHub. Your live site updates in ~60 seconds.</span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        // Animate skill bars
+        e.target.querySelectorAll('.skill-fill').forEach(bar => {
+          bar.style.width = bar.dataset.width;
+        });
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Also trigger skill bars when about section enters
+  const aboutSection = document.querySelector('.about');
+  const skillObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        document.querySelectorAll('.skill-fill').forEach(bar => {
+          bar.style.width = bar.dataset.width;
+        });
+      }
+    });
+  }, { threshold: 0.2 });
+  if (aboutSection) skillObserver.observe(aboutSection);
+</script>
+</body>
+</html>
